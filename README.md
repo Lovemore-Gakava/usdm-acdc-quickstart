@@ -100,6 +100,17 @@ console output. Clicking the card first matters; the walkthrough says why.
   file named `.cdisc-api-key` in your home directory. Nothing else needs it.
 - Anything else: the set-up repository's `docs/troubleshooting.md`.
 
+## Where this comes from
+
+Everything you clone in step 1 is
+[`Lovemore-Gakava/usdm-acdc-in-practice`](https://github.com/Lovemore-Gakava/usdm-acdc-in-practice),
+the repository the work was done in. Beyond the server and the saved chains it holds the book,
+[*Protocol to result*](https://lovemore-gakava.github.io/usdm-acdc-in-practice/), which explains
+what each of the eight steps means and why; the click-by-click walkthrough this page summarises;
+both endpoints' runs and their comparison against the study's own datasets; and the working
+record of how it was all authored, including what went wrong. This page is the short way in;
+that repository is the long one.
+
 ## Licences
 
 Content based on [CDISC Analysis Concepts (GitHub)](https://github.com/cdisc-org/analysis-concepts)
