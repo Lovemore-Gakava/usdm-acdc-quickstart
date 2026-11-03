@@ -1,0 +1,16 @@
+# The versions everything here is written against. tools/build_site.py reads this file and
+# refuses to build if the README's version table does not name the same commits.
+#
+# upstream.commit   cdisc-org/analysis-concepts: the application, its libraries and models
+# factory.tag       Lovemore-Gakava/usdm-acdc-in-practice: the set-up a reader clones, and the
+#                   source of the one non-upstream file the hosted app carries, the M.MMRM
+#                   implementation (endpoints/04-vitals-cfb-mmrm/r_impl_mmrm.json)
+# study.commit      OpenTrialReporting/torivumab-nsclc-301, as the set-up checks it out; the
+#                   hosted site carries nothing of the study
+
+upstream: cdisc-org/analysis-concepts
+upstream.commit: 739344ca31203bb502efeee2b855286e17977be6
+factory: Lovemore-Gakava/usdm-acdc-in-practice
+factory.tag: quickstart-2026-11
+study: OpenTrialReporting/torivumab-nsclc-301
+study.commit: 0f78331

@@ -1,0 +1,50 @@
+# Assemble the hosted application from the pinned sources and publish it to GitHub Pages.
+#
+# tools/build_site.py fetches cdisc-org/analysis-concepts at the commit pins.yml names
+# (sparse, without the sample datasets), adds the M.MMRM implementation from the set-up
+# repository at its tag, appends site/overlay.js to the application's page, and writes
+# _site/. Nothing of CDISC's is committed here; it is rebuilt on every publish, and the
+# build refuses to run if the README's version table and pins.yml disagree.
+
+name: pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Assemble the site from the pinned sources
+        run: python tools/build_site.py
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,3 @@
+# Build output, assembled from the pinned sources by tools/build_site.py
+_site/
+__pycache__/

@@ -20,6 +20,16 @@ You check out the third one. It carries the first as a read-only submodule at it
 fetches the second at its pin. Nothing is modified in CDISC's repository: the study and the
 chains are staged into it while the server runs and removed when it stops.
 
+## Or skip the set-up: the hosted application
+
+The same application, at the same commit, is hosted at
+<https://lovemore-gakava.github.io/usdm-acdc-quickstart/>. Nothing to install: open it, load
+your own study definition at step 1 (a USDM v4 JSON file, or `?usdm=<url>` in the address),
+upload your own `.xpt` datasets at step 8, and run. The study used below is not hosted, so
+the worked example with its exact figure needs the local set-up; the hosted copy is for
+bringing your own documents. It is assembled from the pinned sources on every publish by
+`tools/build_site.py`, which refuses to build if this table and `pins.yml` disagree.
+
 ## 1. Set up
 
 **Windows only, before cloning.** CDISC's repository has file names that overrun Windows's

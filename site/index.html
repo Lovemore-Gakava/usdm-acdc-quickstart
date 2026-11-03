@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>From a protocol to an executed result — the app, hosted</title>
+<style>
+  body { max-width: 46rem; margin: 2.5rem auto; padding: 0 1.25rem; font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; color: #1f2937; }
+  h1 { font-size: 1.7rem; line-height: 1.25; margin: 0 0 .5rem; }
+  h2 { font-size: 1.15rem; margin: 2rem 0 .5rem; }
+  p, li { margin: .4rem 0; }
+  .lead { font-size: 1.05rem; color: #374151; }
+  .open { display: inline-block; margin: 1rem 0; padding: .7rem 1.2rem; background: #1d4ed8; color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; }
+  .open:hover { background: #1e40af; }
+  .warn { border-left: 4px solid #d97706; background: #fffbeb; padding: .6rem .9rem; margin: 1rem 0; }
+  table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+  th, td { text-align: left; vertical-align: top; padding: .4rem .5rem; border-bottom: 1px solid #e5e7eb; }
+  code { font-size: .9em; background: #f3f4f6; padding: .1em .3em; border-radius: 4px; }
+  footer { margin-top: 3rem; font-size: .85rem; color: #6b7280; border-top: 1px solid #e5e7eb; padding-top: 1rem; }
+</style>
+</head>
+<body>
+
+<h1>From a protocol to an executed result</h1>
+<p class="lead">CDISC's Analysis Concepts application, hosted as it stood at one commit, so you can take
+one endpoint of <em>your own</em> study from its definition to a number without installing anything.
+Bring a study definition and your datasets; nothing you load leaves your browser.</p>
+
+<a class="open" href="ac-dc-app/index.html">Open the application</a>
+
+<div class="warn"><strong>Versions.</strong> The application belongs to
+<a href="https://github.com/cdisc-org/analysis-concepts">CDISC</a> and is under active development.
+This copy is fixed at commit <code id="v-up">…</code>; a later commit may look different. The copy is
+rebuilt from that commit on every publish and never edited by hand. <code>versions.json</code> beside
+this page says what is served.</div>
+
+<h2>What to bring</h2>
+<ul>
+  <li><strong>A study definition</strong>: a USDM v4 JSON file in the shape the application's parser
+  reads. Step 1 has a <em>Load a study definition</em> button; or put the file's URL in the address
+  as <code>?usdm=https://…/your-study.json</code>. The shape is documented in the set-up repository's
+  <a href="https://github.com/Lovemore-Gakava/usdm-acdc-in-practice/blob/quickstart-2026-11/study/usdm/README.md"><code>study/usdm/README.md</code></a>,
+  with a worked definition beside it. CDISC's own sample study is on the list already.</li>
+  <li><strong>Analysis datasets</strong> as SAS transport files (<code>.xpt</code>): the subject-level
+  dataset and the one your endpoint reads from. Step 8 asks for them.</li>
+</ul>
+
+<h2>The eight steps</h2>
+<table>
+  <tr><th>Step</th><th>What you do</th><th>What it establishes</th></tr>
+  <tr><td>1 Select Study</td><td>Load yours, then click its card</td><td>The protocol as data</td></tr>
+  <tr><td>2 Study Overview</td><td>Read the arms, visits and estimands</td><td>Where the endpoint sits</td></tr>
+  <tr><td>3 Endpoint</td><td>Choose the concept category and the smart phrases; name the parameter and the timepoint</td><td>What is measured, when, in whom</td></tr>
+  <tr><td>4 Analysis</td><td>Tick an analysis template</td><td>How it is analysed</td></tr>
+  <tr><td>5 Summary</td><td>One card, the endpoint in a sentence</td><td>One declaration, end to end</td></tr>
+  <tr><td>6 Derivations</td><td>Resolve each measure node; link its biomedical concept</td><td>How the number is made, from which columns</td></tr>
+  <tr><td>7 eSAP Builder</td><td>Generate</td><td>The analysis plan, as data</td></tr>
+  <tr><td>8 Execute</td><td>Initialise WebR, upload the <code>.xpt</code> files, set the bindings and slices, run</td><td>The number</td></tr>
+</table>
+
+<div class="warn"><strong>Step 8 has one setting that fails the run if missed.</strong> In the
+<em>Resolved slices</em> table, set the Treatment row to <em>(no filter — keep all values)</em>.
+Left at a label, the engine matches one arm and stops with <em>contrasts can be applied only to
+factors with 2 or more levels</em>. The WebR engine takes about half a minute to start, and the page
+may freeze while it installs packages.</div>
+
+<h2>Worked example, with the clicks</h2>
+<p>The same path on a public simulated trial, click by click, with what every screen should show, is
+the <a href="https://github.com/Lovemore-Gakava/usdm-acdc-quickstart">quickstart README</a> and, behind
+it, the book <a href="https://lovemore-gakava.github.io/usdm-acdc-in-practice/"><em>Protocol to result</em></a>.
+Running that example needs the datasets, which are not hosted here: the README says how to set it up
+locally in a few minutes.</p>
+
+<h2>What is not here</h2>
+<ul>
+  <li>Concept <em>Reference</em> links into the CDISC Library answer 401: they need a Library key, and a
+  hosted page cannot carry one.</li>
+  <li>The sample datasets CDISC ships with the application, and any study's data. You bring yours.</li>
+  <li>Any server. Everything runs in your browser, including R, through
+  <a href="https://docs.r-wasm.org/webr/latest/">WebR</a>.</li>
+</ul>
+
+<footer>
+  <p>Content based on <a href="https://github.com/cdisc-org/analysis-concepts">CDISC Analysis Concepts (GitHub)</a>
+  used under <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a>; the application's code under its
+  <a href="UPSTREAM-LICENSE">MIT licence</a>. One addition is not CDISC's: an implementation of the mixed model for repeated
+  measures, written in the <a href="https://github.com/Lovemore-Gakava/usdm-acdc-in-practice">set-up repository</a> and
+  registered on load, and a small overlay (<a href="overlay.js">overlay.js</a>) that adds the study loader and the
+  <em>no filter</em> entry. This page: MIT, <a href="https://github.com/Lovemore-Gakava/usdm-acdc-quickstart">Lovemore-Gakava/usdm-acdc-quickstart</a>.</p>
+</footer>
+
+<script>
+  fetch('versions.json').then(r => r.json()).then(v => {
+    document.getElementById('v-up').textContent = v.upstream_commit.slice(0, 7) + ' (built ' + v.built.slice(0, 10) + ')';
+  }).catch(() => { document.getElementById('v-up').textContent = 'see versions.json'; });
+</script>
+</body>
+</html>
