@@ -22,6 +22,14 @@ chains are staged into it while the server runs and removed when it stops.
 
 ## 1. Set up
 
+**Windows only, before cloning.** CDISC's repository has file names that overrun Windows's
+default path limit once the clone sits a few folders deep, and the clone fails part-way with
+*Filename too long*. Once per machine:
+
+```bash
+git config --global core.longpaths true
+```
+
 ```bash
 git clone --recurse-submodules https://github.com/Lovemore-Gakava/usdm-acdc-in-practice.git
 cd usdm-acdc-in-practice
