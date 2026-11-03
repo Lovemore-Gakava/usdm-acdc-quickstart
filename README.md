@@ -13,7 +13,7 @@ clicks. Everything here is pinned, so what you get is what these steps describe.
 | What | Where | Pinned at |
 |---|---|---|
 | The application and concept libraries | [cdisc-org/analysis-concepts](https://github.com/cdisc-org/analysis-concepts) | `739344c` |
-| The study: TORIVA-LUNG 301, fully synthetic | [OpenTrialReporting/torivumab-nsclc-301](https://github.com/OpenTrialReporting/torivumab-nsclc-301) | `a806630` |
+| The study: TORIVA-LUNG 301, fully synthetic | [OpenTrialReporting/torivumab-nsclc-301](https://github.com/OpenTrialReporting/torivumab-nsclc-301) | `0f78331` |
 | The set-up that pins both, plus the study definition and the saved chains | [Lovemore-Gakava/usdm-acdc-in-practice](https://github.com/Lovemore-Gakava/usdm-acdc-in-practice) | tag `quickstart-2026-11` |
 
 You check out the third one. It carries the first as a read-only submodule at its pin and
@@ -39,7 +39,8 @@ python tools/bootstrap.py            # python3 on macOS and Linux; py -3 on Wind
 
 The last command builds an isolated Python environment, fetches 10 MB of the study into a
 sibling folder named `torivumab-nsclc-301`, and ends by running a check. It should finish with
-no failures and no skips. It is safe to re-run.
+no failures and no skips, and print the two commands for the next step. It is safe to re-run.
+On a fresh Windows machine the whole step took about two minutes.
 
 **Windows only**, once per clone, or the engine refuses to parse at step 8:
 
