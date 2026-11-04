@@ -14,7 +14,7 @@ clicks. Everything here is pinned, so what you get is what these steps describe.
 |---|---|---|
 | The application and concept libraries | [cdisc-org/analysis-concepts](https://github.com/cdisc-org/analysis-concepts) | `739344c` |
 | The study: TORIVA-LUNG 301, fully synthetic | [OpenTrialReporting/torivumab-nsclc-301](https://github.com/OpenTrialReporting/torivumab-nsclc-301) | `0f78331` |
-| The set-up that pins both, plus the study definition and the saved chains | [Lovemore-Gakava/usdm-acdc-in-practice](https://github.com/Lovemore-Gakava/usdm-acdc-in-practice) | tag `quickstart-2026-11` |
+| The set-up that pins both, plus the study definition and the saved chains | [Lovemore-Gakava/usdm-acdc-in-practice](https://github.com/Lovemore-Gakava/usdm-acdc-in-practice) | tag `quickstart-2026-11.1` |
 
 You check out the third one. It carries the first as a read-only submodule at its pin and
 fetches the second at its pin. Nothing is modified in CDISC's repository: the study and the
@@ -40,10 +40,18 @@ default path limit once the clone sits a few folders deep, and the clone fails p
 git config --global core.longpaths true
 ```
 
+If you cloned before setting this, the clone printed three *Filename too long* errors and
+left three files missing; nothing below repairs that on its own, and step 2 will refuse to
+start. Set the option, then restore the files inside the clone:
+
+```bash
+git -C upstream/analysis-concepts checkout -- .
+```
+
 ```bash
 git clone --recurse-submodules https://github.com/Lovemore-Gakava/usdm-acdc-in-practice.git
 cd usdm-acdc-in-practice
-git checkout quickstart-2026-11 && git submodule update --init
+git checkout quickstart-2026-11.1 && git submodule update --init
 python tools/bootstrap.py            # python3 on macOS and Linux; py -3 on Windows
 ```
 
@@ -101,6 +109,10 @@ console output. Clicking the card first matters; the walkthrough says why.
 
 ## If something goes wrong
 
+- **Step 2 says *NOT CLEAN — foreign changes, fix by hand* and lists three *Scenario* files as
+  deleted.** The clone was made before the Windows long-path setting in step 1, so the three
+  files could not be written, and the bootstrap does not check for that. Set the option, then
+  `git -C upstream/analysis-concepts checkout -- .` inside the clone. No need to re-clone.
 - **`python3` fails on an import after set-up.** Use the environment's interpreter shown in
   step 2, not the system one.
 - **Step 8 says *unexpected invalid token*.** The Windows line-ending fix in step 1.
