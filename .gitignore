@@ -1,3 +1,7 @@
 # Build output, assembled from the pinned sources by tools/build_site.py
 _site/
 __pycache__/
+
+# What launch.py clones and builds beside itself
+usdm-acdc-in-practice/
+torivumab-nsclc-301/

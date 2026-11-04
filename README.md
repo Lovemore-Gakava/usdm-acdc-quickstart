@@ -30,15 +30,37 @@ the worked example with its exact figure needs the local set-up; the hosted copy
 bringing your own documents. It is assembled from the pinned sources on every publish by
 `tools/build_site.py`, which refuses to build if this table and `pins.yml` disagree.
 
-## 1. Set up
+## 1. Set up and start
 
-**Windows only, before cloning.** CDISC's repository has file names that overrun Windows's
-default path limit once the clone sits a few folders deep, and the clone fails part-way with
-*Filename too long*. Once per machine:
+One command does the set-up and starts the application:
+
+```bash
+git clone https://github.com/Lovemore-Gakava/usdm-acdc-quickstart.git
+cd usdm-acdc-quickstart
+python launch.py            # python3 on macOS and Linux; py -3 on Windows, or double-click launch.cmd
+```
+
+It checks that git and Python 3.10 or newer are present, clones the set-up repository beside
+itself at the tag above with CDISC's application inside it, runs the set-up's bootstrap, which
+builds an isolated Python environment and fetches 10 MB of the study, applies the two Windows
+settings the application needs, starts the server and opens the application in your browser.
+Each step says what it did, and the first thing it cannot do stops it with the reason. It is
+safe to re-run, and `launch.py --check` reports what the machine has and lacks without changing
+anything. On a fresh Windows machine the first run takes about four minutes, most of it
+fetching. Nothing is written outside this folder and no global setting is changed.
+
+You should see three study cards, with **TORIVA-LUNG 301** in the middle. Press Ctrl-C in the
+window when you are done; the server cleans up after itself.
+
+**By hand**, if you would rather see each step. On Windows first, once per machine, because
+CDISC's repository has file names that overrun the default path limit once the clone sits a
+few folders deep, and the clone otherwise fails part-way with *Filename too long*:
 
 ```bash
 git config --global core.longpaths true
 ```
+
+Then:
 
 ```bash
 git clone --recurse-submodules https://github.com/Lovemore-Gakava/usdm-acdc-in-practice.git
@@ -47,34 +69,25 @@ git checkout quickstart-2026-11.1 && git submodule update --init
 python tools/bootstrap.py            # python3 on macOS and Linux; py -3 on Windows
 ```
 
-The last command builds an isolated Python environment, fetches 10 MB of the study into a
-sibling folder named `torivumab-nsclc-301`, and ends by running a check. It should finish with
-no failures and no skips, and print the two commands for the next step. It is safe to re-run.
-On a fresh Windows machine the whole step took about two minutes.
-
-If you cloned on Windows before setting the long-path option, the clone printed three
-*Filename too long* errors and left three files missing. The bootstrap restores them, and sets
-the option for that clone if Windows refuses again, so run it as above; no need to re-clone.
-
-**Windows only**, once per clone, or the engine refuses to parse at step 8:
+The bootstrap builds the Python environment, fetches the study into a sibling folder named
+`torivumab-nsclc-301`, and ends by running a check that should finish with no failures and no
+skips. If you cloned on Windows before setting the long-path option, it restores the three
+files the clone could not write. Windows only, once per clone, or the engine refuses to parse
+at step 8:
 
 ```bash
 git -C upstream/analysis-concepts config core.autocrlf false
 git -C upstream/analysis-concepts checkout -- .
 ```
 
-## 2. Start the application
+Then start the server and open <http://localhost:8080/ac-dc-app/index.html>:
 
 ```bash
 .venv/bin/python tools/walkthrough.py serve          # macOS, Linux
 .venv\Scripts\python.exe tools/walkthrough.py serve  # Windows
 ```
 
-Open <http://localhost:8080/ac-dc-app/index.html>. You should see three study cards, with
-**TORIVA-LUNG 301** in the middle. Press Ctrl-C when you are done; the server cleans up after
-itself.
-
-## 3. Click through to the number
+## 2. Click through to the number
 
 The application has eight numbered steps along the top. The click-by-click version of each,
 with a screenshot of what every screen should show, is served beside the app at
@@ -105,13 +118,15 @@ console output. Clicking the card first matters; the walkthrough says why.
 
 ## If something goes wrong
 
-- **Step 2 says *NOT CLEAN — foreign changes, fix by hand* and lists three *Scenario* files as
-  deleted.** The clone was made before the Windows long-path setting in step 1, so the three
-  files could not be written. Re-run the bootstrap; it restores them. By hand: set the option,
-  then `git -C upstream/analysis-concepts checkout -- .` inside the clone. No need to re-clone.
-- **`python3` fails on an import after set-up.** Use the environment's interpreter shown in
-  step 2, not the system one.
-- **Step 8 says *unexpected invalid token*.** The Windows line-ending fix in step 1.
+- **The server refuses with *NOT CLEAN — foreign changes, fix by hand* and lists three
+  *Scenario* files as deleted.** The clone was made by hand on Windows before the long-path
+  setting, so the three files could not be written. Re-run the bootstrap, or `launch.py`; it
+  restores them. By hand: set the option, then `git -C upstream/analysis-concepts checkout -- .`
+  inside the clone. No need to re-clone.
+- **`python3` fails on an import after set-up.** Use the environment's interpreter shown under
+  *by hand* in step 1, not the system one.
+- **Step 8 says *unexpected invalid token*.** The Windows line-ending fix; `launch.py` applies
+  it, or by hand in step 1.
 - **Step 8 says *contrasts can be applied only to factors with 2 or more levels*.** The
   Treatment slice was left filtered; set it to *no filter*.
 - **A concept's Reference link answers 401.** It needs a CDISC Library API key, one line in a
@@ -120,7 +135,7 @@ console output. Clicking the card first matters; the walkthrough says why.
 
 ## Where this comes from
 
-Everything you clone in step 1 is
+Everything the launcher clones in step 1 is
 [`Lovemore-Gakava/usdm-acdc-in-practice`](https://github.com/Lovemore-Gakava/usdm-acdc-in-practice),
 the repository the work was done in. Beyond the server and the saved chains it holds the book,
 [*Protocol to result*](https://lovemore-gakava.github.io/usdm-acdc-in-practice/), which explains

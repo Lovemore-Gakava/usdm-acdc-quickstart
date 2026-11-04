@@ -61,6 +61,9 @@ def check_readme(pins: dict[str, str]) -> None:
     missing = [v for v in (pins["upstream.commit"][:7], pins["factory.tag"], pins.get("study.commit", "")) if v and v not in readme]
     if missing:
         sys.exit(f"README.md does not name the pinned version(s): {', '.join(missing)}")
+    launch = (ROOT / "launch.py").read_text(encoding="utf-8")
+    if f'TAG = "{pins["factory.tag"]}"' not in launch:
+        sys.exit(f"launch.py does not set TAG to the pinned tag {pins['factory.tag']}")
 
 
 def git(*args: str, cwd: Path | None = None, capture: bool = False) -> str:
