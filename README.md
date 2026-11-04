@@ -40,14 +40,6 @@ default path limit once the clone sits a few folders deep, and the clone fails p
 git config --global core.longpaths true
 ```
 
-If you cloned before setting this, the clone printed three *Filename too long* errors and
-left three files missing; nothing below repairs that on its own, and step 2 will refuse to
-start. Set the option, then restore the files inside the clone:
-
-```bash
-git -C upstream/analysis-concepts checkout -- .
-```
-
 ```bash
 git clone --recurse-submodules https://github.com/Lovemore-Gakava/usdm-acdc-in-practice.git
 cd usdm-acdc-in-practice
@@ -59,6 +51,10 @@ The last command builds an isolated Python environment, fetches 10 MB of the stu
 sibling folder named `torivumab-nsclc-301`, and ends by running a check. It should finish with
 no failures and no skips, and print the two commands for the next step. It is safe to re-run.
 On a fresh Windows machine the whole step took about two minutes.
+
+If you cloned on Windows before setting the long-path option, the clone printed three
+*Filename too long* errors and left three files missing. The bootstrap restores them, and sets
+the option for that clone if Windows refuses again, so run it as above; no need to re-clone.
 
 **Windows only**, once per clone, or the engine refuses to parse at step 8:
 
@@ -111,8 +107,8 @@ console output. Clicking the card first matters; the walkthrough says why.
 
 - **Step 2 says *NOT CLEAN — foreign changes, fix by hand* and lists three *Scenario* files as
   deleted.** The clone was made before the Windows long-path setting in step 1, so the three
-  files could not be written, and the bootstrap does not check for that. Set the option, then
-  `git -C upstream/analysis-concepts checkout -- .` inside the clone. No need to re-clone.
+  files could not be written. Re-run the bootstrap; it restores them. By hand: set the option,
+  then `git -C upstream/analysis-concepts checkout -- .` inside the clone. No need to re-clone.
 - **`python3` fails on an import after set-up.** Use the environment's interpreter shown in
   step 2, not the system one.
 - **Step 8 says *unexpected invalid token*.** The Windows line-ending fix in step 1.
