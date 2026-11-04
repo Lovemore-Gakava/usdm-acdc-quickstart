@@ -16,8 +16,8 @@ clicks. Everything here is pinned, so what you get is what these steps describe.
 | The study: TORIVA-LUNG 301, fully synthetic | [OpenTrialReporting/torivumab-nsclc-301](https://github.com/OpenTrialReporting/torivumab-nsclc-301) | `0f78331` |
 | The set-up that pins both, plus the study definition and the saved chains | [Lovemore-Gakava/usdm-acdc-in-practice](https://github.com/Lovemore-Gakava/usdm-acdc-in-practice) | tag `quickstart-2026-11.1` |
 
-You check out the third one. It carries the first as a read-only submodule at its pin and
-fetches the second at its pin. Nothing is modified in CDISC's repository: the study and the
+The launcher below checks out the third one. It carries the first as a read-only submodule at
+its pin and fetches the second at its pin. Nothing is modified in CDISC's repository: the study and the
 chains are staged into it while the server runs and removed when it stops.
 
 ## Or skip the set-up: the hosted application
@@ -28,7 +28,8 @@ your own study definition at step 1 (a USDM v4 JSON file, or `?usdm=<url>` in th
 upload your own `.xpt` datasets at step 8, and run. The study used below is not hosted, so
 the worked example with its exact figure needs the local set-up; the hosted copy is for
 bringing your own documents. It is assembled from the pinned sources on every publish by
-`tools/build_site.py`, which refuses to build if this table and `pins.yml` disagree.
+`tools/build_site.py`, which refuses to build if this table, `pins.yml` and `launch.py` do not
+name the same versions.
 
 ## 1. Set up and start
 
@@ -46,8 +47,8 @@ builds an isolated Python environment and fetches 10 MB of the study, applies th
 settings the application needs, starts the server and opens the application in your browser.
 Each step says what it did, and the first thing it cannot do stops it with the reason. It is
 safe to re-run, and `launch.py --check` reports what the machine has and lacks without changing
-anything. On a fresh Windows machine the first run takes about four minutes, most of it
-fetching. Nothing is written outside this folder and no global setting is changed.
+anything. The first run takes a few minutes, most of it fetching. Everything it installs lands
+inside this folder, and no global setting is changed.
 
 You should see three study cards, with **TORIVA-LUNG 301** in the middle. Press Ctrl-C in the
 window when you are done; the server cleans up after itself.
