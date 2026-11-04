@@ -11,6 +11,6 @@
 upstream: cdisc-org/analysis-concepts
 upstream.commit: 739344ca31203bb502efeee2b855286e17977be6
 factory: Lovemore-Gakava/usdm-acdc-in-practice
-factory.tag: quickstart-2026-11.1
+factory.tag: quickstart-2026-11.2
 study: OpenTrialReporting/torivumab-nsclc-301
 study.commit: 0f78331

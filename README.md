@@ -14,7 +14,7 @@ clicks. Everything here is pinned, so what you get is what these steps describe.
 |---|---|---|
 | The application and concept libraries | [cdisc-org/analysis-concepts](https://github.com/cdisc-org/analysis-concepts) | `739344c` |
 | The study: TORIVA-LUNG 301, fully synthetic | [OpenTrialReporting/torivumab-nsclc-301](https://github.com/OpenTrialReporting/torivumab-nsclc-301) | `0f78331` |
-| The set-up that pins both, plus the study definition and the saved chains | [Lovemore-Gakava/usdm-acdc-in-practice](https://github.com/Lovemore-Gakava/usdm-acdc-in-practice) | tag `quickstart-2026-11.1` |
+| The set-up that pins both, plus the study definition and the saved chains | [Lovemore-Gakava/usdm-acdc-in-practice](https://github.com/Lovemore-Gakava/usdm-acdc-in-practice) | tag `quickstart-2026-11.2` |
 
 The launcher below checks out the third one. It carries the first as a read-only submodule at
 its pin and fetches the second at its pin. Nothing is modified in CDISC's repository: the study and the
@@ -25,9 +25,9 @@ chains are staged into it while the server runs and removed when it stops.
 The same application, at the same commit, is hosted at
 <https://lovemore-gakava.github.io/usdm-acdc-quickstart/>. Nothing to install: open it, load
 your own study definition at step 1 (a USDM v4 JSON file, or `?usdm=<url>` in the address),
-upload your own `.xpt` datasets at step 8, and run. The study used below is not hosted, so
-the worked example with its exact figure needs the local set-up; the hosted copy is for
-bringing your own documents. It is assembled from the pinned sources on every publish by
+upload your own `.xpt` datasets at step 8, and run. The launched app below has the same
+button beside its three cards. The study used below is not hosted, so the worked example
+with its exact figure needs the local set-up. The hosted copy is assembled from the pinned sources on every publish by
 `tools/build_site.py`, which refuses to build if this table, `pins.yml` and `launch.py` do not
 name the same versions.
 
@@ -66,7 +66,7 @@ Then:
 ```bash
 git clone --recurse-submodules https://github.com/Lovemore-Gakava/usdm-acdc-in-practice.git
 cd usdm-acdc-in-practice
-git checkout quickstart-2026-11.1 && git submodule update --init
+git checkout quickstart-2026-11.2 && git submodule update --init
 python tools/bootstrap.py            # python3 on macOS and Linux; py -3 on Windows
 ```
 

@@ -37,7 +37,7 @@ import webbrowser
 from pathlib import Path
 
 REPO_URL = "https://github.com/Lovemore-Gakava/usdm-acdc-in-practice.git"
-TAG = "quickstart-2026-11.1"
+TAG = "quickstart-2026-11.2"
 HERE = Path(__file__).resolve().parent
 DEST = HERE / "usdm-acdc-in-practice"
 SUB = DEST / "upstream" / "analysis-concepts"

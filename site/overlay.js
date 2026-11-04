@@ -1,7 +1,8 @@
 // overlay.js — appended to the hosted application's page by tools/build_site.py.
 // Not part of cdisc-org/analysis-concepts. The application's own files are not edited.
 //
-// Four things, the first three taken from the set-up repository's walkthrough server:
+// Four things, all also in the set-up repository's walkthrough server, which is where they are
+// maintained; the fourth was written here first and carried back there on 2026-11-04:
 //   1. a '(no filter)' entry on every slice-value dropdown at step 8: the engine treats an empty
 //      value as no filter, but the dropdowns offer only the values they found, so a Treatment
 //      label can never be cleared and the run fails with "contrasts can be applied only to
@@ -82,7 +83,7 @@
     st.studyManifest = (st.studyManifest || []).concat([{ file: name }]);
     st.studies.push(parsed);
     app.renderCurrentStep();
-    status('Loaded ' + name + ' — it is the last card. Click it to continue.', 8000);
+    status('Loaded ' + name + ' — it is the new card. Click it to continue.', 8000);
   }
 
   function loadFromFile(file) {
