@@ -136,14 +136,16 @@ def do_clone(check_only: bool) -> None:
             say("  FAILED:\n    " + p.stderr.strip().replace("\n", "\n    "))
             FAIL.append("clone")
             return
-    want = git("rev-parse", f"{TAG}^{{commit}}", cwd=DEST)
+    # -q --verify: a plain rev-parse echoes an unknown name back on stdout, which read as "known"
+    # and skipped the fetch, so a clone from an earlier tag could never move to a newer one.
+    want = git("rev-parse", "-q", "--verify", f"{TAG}^{{commit}}", cwd=DEST)
     if not want:
         if check_only:
             say(f"  the clone does not know the tag {TAG}")
             FAIL.append("clone")
             return
         run("git", "fetch", "--quiet", "--tags", "origin", cwd=DEST, check=False)
-        want = git("rev-parse", f"{TAG}^{{commit}}", cwd=DEST)
+        want = git("rev-parse", "-q", "--verify", f"{TAG}^{{commit}}", cwd=DEST)
     head = git("rev-parse", "HEAD", cwd=DEST)
     if head != want:
         if check_only:
